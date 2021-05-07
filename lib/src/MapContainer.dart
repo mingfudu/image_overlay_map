@@ -11,10 +11,8 @@ class MapContainer extends StatefulWidget {
   final void Function() onTab;
   final Widget Function(double scale, MarkerModel data) markerWidgetBuilder;
 
-  MapContainer(
-      {this.child,
-      this.markers,
-      this.size,
+  MapContainer(this.child, this.size,
+      {this.markers,
       this.onMarkerClicked,
       this.onTab,
       this.markerWidgetBuilder,
@@ -190,7 +188,6 @@ class _MapContainerState extends State<MapContainer> {
         onScaleStart: _handleOnScaleStart,
         onScaleUpdate: _handleOnScaleUpdate,
         behavior: HitTestBehavior.translucent,
-        child: Stack(
-            children: _getMapWidgetWithMarker(_scale, _markers)));
+        child: Stack(children: _getMapWidgetWithMarker(_scale, _markers)));
   }
 }

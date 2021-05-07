@@ -74,8 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
             }
             return Center(
               child: MapContainer(
-                  child: new Image(image: CachedNetworkImageProvider(url)),
-                  size: snapShot.data,
+                  new Image(image: CachedNetworkImageProvider(url)),
+                  snapShot.data,
                   markers: _getMarker(widget._facilityList, snapShot.data),
                   markerWidgetBuilder: _getMarkerWidget,
                   onTab: _onTab,

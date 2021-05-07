@@ -4,13 +4,27 @@ This is a Flutter package use local or web image to build a map.
 It's able to customize markers use markerWidgetBuilder.
 Markers will be rebuild when scale on screen;
 
-## Getting Started
+https://user-images.githubusercontent.com/11880676/117442463-c1a65200-af71-11eb-940e-4cc60b31d2a0.mp4
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+## Guidance
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+### this.child,
+An image widget as map. It will be scaled to the right size to make sure fit full screen on different devices.
+The image use local assets or web url is both supported.Sample demo shows howto use web images;
+
+### this.size,
+Size of image in pixels.Sample demo use Leaflet CRS.Simple, bounds = [[-height / 2, -width / 2], [height / 2, width / 2]].
+[0,0] is center of image. You can build a different one when build MarkerModel from your marker data;
+
+### this.markers,
+MarkerModel data build from your marker data.
+          
+### this.onMarkerClicked,
+Called when marker widget is clicked.
+
+### this.markerWidgetBuilder,
+Build a widget from MarkerModel. You can build different widget for different scale value.
+
+### this.onTab,
+Called when map background image is tabbed.
+          
