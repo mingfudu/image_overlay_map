@@ -18,7 +18,7 @@ Size of image in pixels.Sample demo use Leaflet CRS.Simple, bounds = [[-height /
 
 ### this.markers,
 MarkerModel data build from your marker data.
-          
+
 ### this.onMarkerClicked,
 Called when marker widget is clicked.
 
@@ -27,4 +27,3 @@ Build a widget from MarkerModel. You can build different widget for different sc
 
 ### this.onTab,
 Called when map background image is tabbed.
-          
