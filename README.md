@@ -1,6 +1,8 @@
-# leaflet_image_overlay_map
+# image_overlay_map
 
-A new Flutter package.
+This is a Flutter package use local or web image to build a map.
+It's able to customize markers use markerWidgetBuilder.
+Markers will be rebuild when scale on screen;
 
 ## Getting Started
 
