@@ -16,9 +16,9 @@ class MeasuredSize extends StatefulWidget {
   final OnWidgetSizeChange onChange;
 
   const MeasuredSize({
-    Key key,
-    @required this.onChange,
-    @required this.child,
+    Key? key,
+    required this.onChange,
+    required this.child,
   }) : super(key: key);
 
   @override
@@ -46,8 +46,8 @@ class _MeasuredSizeState extends State<MeasuredSize> {
 
   void postFrameCallback(_) {
     var context = widgetKey.currentContext;
-    Size newSize = context.size;
-    if (newSize == Size.zero) return;
+    var newSize = context?.size;
+    if (newSize == null || newSize == Size.zero) return;
     if (oldSize == newSize) return;
     oldSize = newSize;
     widget.onChange(newSize);

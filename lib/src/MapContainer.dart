@@ -7,16 +7,16 @@ class MapContainer extends StatefulWidget {
   final Image child;
   final Size size;
   final List<MarkerModel> markers;
-  final ValueChanged<MarkerModel> onMarkerClicked;
-  final void Function() onTab;
-  final Widget Function(double scale, MarkerModel data) markerWidgetBuilder;
+  final ValueChanged<MarkerModel>? onMarkerClicked;
+  final void Function()? onTab;
+  final Widget Function(double scale, MarkerModel data)? markerWidgetBuilder;
 
   MapContainer(this.child, this.size,
-      {this.markers,
+      {required this.markers,
       this.onMarkerClicked,
       this.onTab,
       this.markerWidgetBuilder,
-      Key key})
+      Key? key})
       : super(key: key);
 
   _MapContainerState createState() => _MapContainerState();
@@ -25,8 +25,8 @@ class MapContainer extends StatefulWidget {
 class _MapContainerState extends State<MapContainer> {
   Offset _offset = Offset.zero;
   double _scale = 1.0;
-  Offset _normalizedOffset;
-  double _previousScale;
+  late Offset _normalizedOffset;
+  late double _previousScale;
   bool _needSetDefaultScaleAndOffset = true;
   double _defaultScale = 1.0;
   double _defaultScaleX = 1.0;
@@ -44,7 +44,10 @@ class _MapContainerState extends State<MapContainer> {
   }
 
   Offset _clampOffset(Offset offset) {
-    final Size size = context.size;
+    if (context.size == null) {
+      return offset;
+    }
+    final Size size = context.size!;
     // expand image to fit full screen if need
     if (_defaultScaleX > _defaultScaleY) {
       double per = _defaultScaleY / _defaultScaleX;
@@ -64,7 +67,10 @@ class _MapContainerState extends State<MapContainer> {
   }
 
   void _handleOnScaleStart(ScaleStartDetails details) {
-    widget.onTab();
+    if (widget.onTab != null) {
+      widget.onTab!();
+    }
+
     setState(() {
       _previousScale = _scale;
       _normalizedOffset = (details.localFocalPoint - _offset) / _scale;
@@ -81,7 +87,7 @@ class _MapContainerState extends State<MapContainer> {
 
   Future<void> _handleOnPressMarker(
       BuildContext context, MarkerModel markerModel) async {
-    if (widget.onMarkerClicked != null) widget.onMarkerClicked(markerModel);
+    if (widget.onMarkerClicked != null) widget.onMarkerClicked!(markerModel);
   }
 
   List<Widget> _getMapWidgetWithMarker(
@@ -136,14 +142,15 @@ class _MapContainerState extends State<MapContainer> {
 
   Widget _getMarkerWidget(double scale, MarkerModel data) {
     if (widget.markerWidgetBuilder != null) {
-      return widget.markerWidgetBuilder(scale, data);
+      return widget.markerWidgetBuilder!(scale, data);
     }
     return Icon(Icons.location_on, color: Colors.redAccent);
   }
 
   void calculateMarkerPosition() {
-    if (_markers.isNotEmpty || widget.markers.isEmpty) return;
-    final Size size = context.size;
+    if (_markers.isNotEmpty || widget.markers.isEmpty || context.size == null)
+      return;
+    final Size size = context.size!;
     var markerCalculated = <MarkerModel>[];
     var scaleX = size.width / widget.size.width;
     var scaleY = size.height / widget.size.height;
@@ -162,8 +169,8 @@ class _MapContainerState extends State<MapContainer> {
   }
 
   void calculateDefaultScaleAndOffset() {
-    if (!_needSetDefaultScaleAndOffset) return;
-    final Size size = context.size;
+    if (!_needSetDefaultScaleAndOffset || context.size == null) return;
+    final Size size = context.size!;
     _defaultScaleX = size.width / widget.size.width;
     _defaultScaleY = size.height / widget.size.height;
     double scaleMax = math.max(_defaultScaleX, _defaultScaleY);
