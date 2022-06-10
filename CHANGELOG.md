@@ -3,3 +3,7 @@
 This is a component use local or web image to build a map.
 It's able to customize markers use markerWidgetBuilder.
 Markers will be rebuild when scale on screen;
+
+## 0.0.2
+
+update to nullsafety.
